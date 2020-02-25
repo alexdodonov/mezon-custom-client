@@ -41,21 +41,21 @@ class CustomClient
     /**
      * Constructor
      *
-     * @param string $uRL
+     * @param string $URL
      *            Service URL
      * @param array $headers
      *            HTTP headers
      */
-    public function __construct(string $uRL, array $headers = [])
+    public function __construct(string $URL, array $headers = [])
     {
-        if ($uRL === false || $uRL === '') {
+        if ($URL === false || $URL === '') {
             throw (new \Exception(
                 'Service URL must be set in class ' . __CLASS__ . ' extended in ' . get_called_class() .
                 ' and called from ' . ($_SERVER['SERVER_NAME'] ?? 'console') . ($_SERVER['REQUEST_URI'] ?? ''),
                 - 23));
         }
 
-        $this->url = rtrim($uRL, '/');
+        $this->url = rtrim($URL, '/');
 
         $this->headers = $headers;
     }
