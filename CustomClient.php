@@ -60,7 +60,7 @@ class CustomClient
     /**
      * Method send request to the URL
      *
-     * @param string $uRL
+     * @param string $url
      *            URL
      * @param array $headers
      *            Headers
@@ -71,26 +71,26 @@ class CustomClient
      * @return array Response body and HTTP code
      * @codeCoverageIgnore
      */
-    protected function sendRequest(string $uRL, array $headers, string $method, array $data = []): array
+    protected function sendRequest(string $url, array $headers, string $method, array $data = []): array
     {
-        return \Mezon\CustomClient\CurlWrapper::sendRequest($uRL, $headers, $method, $data);
+        return \Mezon\CustomClient\CurlWrapper::sendRequest($url, $headers, $method, $data);
     }
 
     /**
      * Method gets result and validates it.
      *
-     * @param string $uRL
+     * @param string $url
      *            Request URL
      * @param int $code
      *            Response HTTP code
      * @return mixed Request result
      */
-    protected function dispatchResult(string $uRL, int $code)
+    protected function dispatchResult(string $url, int $code)
     {
         if ($code == 404) {
-            throw (new \Exception("URL: $uRL not found"));
+            throw (new \Exception("URL: $url not found"));
         } elseif ($code == 400) {
-            throw (new \Exception("Bad request on URL $uRL"));
+            throw (new \Exception("Bad request on URL $url"));
         } elseif ($code == 403) {
             throw (new \Exception("Auth error"));
         }
