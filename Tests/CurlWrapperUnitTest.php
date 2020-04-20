@@ -1,5 +1,7 @@
 <?php
 
+require_once(__DIR__.'/../CurlWrapper.php');
+
 class CurlWrapperUnitTest extends \PHPUnit\Framework\TestCase
 {
 

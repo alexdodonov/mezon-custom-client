@@ -45,7 +45,7 @@ class CurlWrapper
         if ($method == 'POST') {
             $formData = [];
             foreach ($data as $key => $value) {
-                $formData[] = $key . '=' . urldecode($value);
+                $formData[] = $key . '=' . urlencode($value);
             }
             $curlConfig[CURLOPT_POSTFIELDS] = implode('&', $formData);
         }

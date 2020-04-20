@@ -1,4 +1,14 @@
 <?php
+require_once (__DIR__ . '/../CustomClient.php');
+
+class TestClient extends \Mezon\CustomClient\CustomClient
+{
+
+    public function getCommonHeadersPublic(): array
+    {
+        return parent::getCommonHeaders();
+    }
+}
 
 class CustomClientUnitTest extends \PHPUnit\Framework\TestCase
 {
@@ -8,12 +18,16 @@ class CustomClientUnitTest extends \PHPUnit\Framework\TestCase
      */
     public function testConstructorInvalid(): void
     {
+        // assertions
         $this->expectException(Exception::class);
 
+        // setup and test body
         new \Mezon\CustomClient\CustomClient(false);
 
+        // assertions
         $this->expectException(Exception::class);
 
+        // setup and test body
         new \Mezon\CustomClient\CustomClient('');
     }
 
@@ -140,7 +154,8 @@ class CustomClientUnitTest extends \PHPUnit\Framework\TestCase
      *
      * @param int $httpCode
      *            code of the response
-     * @param string $methodName name of the testing methodd
+     * @param string $methodName
+     *            name of the testing methodd
      * @dataProvider resultDispatchingDataProvider
      */
     public function testResultDispatching(int $httpCode, string $methodName): void
@@ -157,5 +172,18 @@ class CustomClientUnitTest extends \PHPUnit\Framework\TestCase
 
         // test body
         $client->$methodName('/end-point/');
+    }
+
+    /**
+     * Testing setting idempotency key
+     */
+    public function testSetIdempotencyKey(): void
+    {
+        // setup
+        $client = new TestClient('http://unit.test');
+        $client->setIdempotencyKey('iKey');
+
+        // test body and assertions
+        $this->assertStringContainsString('iKey', implode('', $client->getCommonHeadersPublic()));
     }
 }
