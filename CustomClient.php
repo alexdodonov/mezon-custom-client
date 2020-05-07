@@ -29,7 +29,7 @@ class CustomClient
      *
      * @var array
      */
-    protected $headers = false;
+    protected $headers = [];
 
     /**
      * Idempotence key
@@ -110,11 +110,7 @@ class CustomClient
      */
     protected function getCommonHeaders(): array
     {
-        $result = [];
-
-        if ($this->headers !== false) {
-            $result = $this->headers;
-        }
+        $result = $this->headers;
 
         if ($this->idempotencyKey !== '') {
             $result[] = 'Idempotency-Key: ' . $this->idempotencyKey;

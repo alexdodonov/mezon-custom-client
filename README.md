@@ -7,3 +7,27 @@ Just print
 ```
 composer require mezon/custom-client
 ```
+
+## Sending requests
+
+You can send different types of requests.
+
+``PHP
+$client = new \Mezon\CustomClient\CustomClient();
+
+// sending get request
+$client->sendGetRequest('https://your-api/end/point/?param=1');
+
+// sending post request
+$client->sendPostRequest('https://your-api/end/point/', ['param' => 1]);
+
+// sending put request
+$client->sendPutRequest('https://your-api/end/point/', ['param' => 1]);
+
+// sending delete request
+$client->sendDeleteRequest('https://your-api/end/point/', ['param' => 1]);
+```
+
+## Idempotence keys
+
+tba
