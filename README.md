@@ -12,7 +12,7 @@ composer require mezon/custom-client
 
 You can send different types of requests.
 
-``PHP
+```PHP
 $client = new \Mezon\CustomClient\CustomClient();
 
 // sending get request
