@@ -49,7 +49,10 @@ class CustomClient
     public function __construct(string $url, array $headers = [])
     {
         if ($url === false || $url === '') {
-            throw (new \Exception('Service URL must be set in class ' . __CLASS__ . ' extended in ' . get_called_class() . ' and called from ' . ($_SERVER['SERVER_NAME'] ?? 'console') . ($_SERVER['REQUEST_URI'] ?? ''), - 23));
+            throw (new \Exception(
+                'Service URL must be set in class ' . __CLASS__ . ' extended in ' . get_called_class() .
+                ' and called from ' . ($_SERVER['SERVER_NAME'] ?? 'console') . ($_SERVER['REQUEST_URI'] ?? ''),
+                - 23));
         }
 
         $this->url = rtrim($url, '/');
@@ -85,7 +88,7 @@ class CustomClient
      *            Response HTTP code
      * @return mixed Request result
      */
-    protected function dispatchResult(string $url, int $code)
+    protected function dispatchResult(string $url, int $code): void
     {
         if ($code == 404) {
             throw (new \Exception("URL: $url not found"));
@@ -142,7 +145,7 @@ class CustomClient
      * @param array $data
      *            Request data
      */
-    protected function sendFormRequest(string $method, string $endpoint, array $data = [])
+    protected function sendFormRequest(string $method, string $endpoint, array $data = []): string
     {
         $fullURL = $this->url . '/' . ltrim($endpoint, '/');
 
@@ -162,7 +165,7 @@ class CustomClient
      *            Request data
      * @return mixed Result of the request
      */
-    public function sendPostRequest(string $endpoint, array $data = [])
+    public function sendPostRequest(string $endpoint, array $data = []): string
     {
         return $this->sendFormRequest('POST', $endpoint, $data);
     }
@@ -176,7 +179,7 @@ class CustomClient
      *            Request data
      * @return mixed Result of the request
      */
-    public function sendPutRequest(string $endpoint, array $data = [])
+    public function sendPutRequest(string $endpoint, array $data = []): string
     {
         return $this->sendFormRequest('PUT', $endpoint, $data);
     }
@@ -190,7 +193,7 @@ class CustomClient
      *            Request data
      * @return mixed Result of the request
      */
-    public function sendDeleteRequest(string $endpoint, array $data = [])
+    public function sendDeleteRequest(string $endpoint, array $data = []): string
     {
         return $this->sendFormRequest('DELETE', $endpoint, $data);
     }
@@ -202,7 +205,7 @@ class CustomClient
      *            Calling endpoint.
      * @return mixed Result of the remote call.
      */
-    public function sendGetRequest(string $endpoint)
+    public function sendGetRequest(string $endpoint): string
     {
         $fullURL = $this->url . '/' . ltrim($endpoint, '/');
 
@@ -222,7 +225,7 @@ class CustomClient
      * @param string $key
      *            Idempotence key
      */
-    public function setIdempotencyKey(string $key)
+    public function setIdempotencyKey(string $key): void
     {
         $this->idempotencyKey = $key;
     }
