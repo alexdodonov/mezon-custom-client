@@ -83,12 +83,14 @@ class CustomClient
      * Method gets result and validates it.
      *
      * @param string $url
-     *            Request URL
+     *            request URL
      * @param int $code
-     *            Response HTTP code
+     *            response HTTP code
+     * @param string $body
+     *            response body
      * @return mixed Request result
      */
-    protected function dispatchResult(string $url, int $code): void
+    protected function dispatchResult(string $url, int $code, string $body)
     {
         if ($code == 404) {
             throw (new \Exception("URL: $url not found"));
@@ -97,6 +99,8 @@ class CustomClient
         } elseif ($code == 403) {
             throw (new \Exception("Auth error"));
         }
+
+        return $body;
     }
 
     /**
@@ -147,13 +151,11 @@ class CustomClient
      */
     protected function sendFormRequest(string $method, string $endpoint, array $data = [])
     {
-        $fullURL = $this->url . '/' . ltrim($endpoint, '/');
+        $fullUrl = $this->url . '/' . ltrim($endpoint, '/');
 
-        list ($body, $code) = $this->sendRequest($fullURL, $this->getFormHeaders(), $method, $data);
+        list ($body, $code) = $this->sendRequest($fullUrl, $this->getFormHeaders(), $method, $data);
 
-        $this->dispatchResult($fullURL, $code);
-
-        return $body;
+        return $this->dispatchResult($fullUrl, $code, $body);
     }
 
     /**
@@ -207,15 +209,13 @@ class CustomClient
      */
     public function sendGetRequest(string $endpoint)
     {
-        $fullURL = $this->url . '/' . ltrim($endpoint, '/');
+        $fullUrl = $this->url . '/' . ltrim($endpoint, '/');
 
-        $fullURL = str_replace(' ', '%20', $fullURL);
+        $fullUrl = str_replace(' ', '%20', $fullUrl);
 
-        list ($body, $code) = $this->sendRequest($fullURL, $this->getCommonHeaders(), 'GET');
+        list ($body, $code) = $this->sendRequest($fullUrl, $this->getCommonHeaders(), 'GET');
 
-        $this->dispatchResult($fullURL, $code);
-
-        return $body;
+        return $this->dispatchResult($fullUrl, $code, $body);
     }
 
     /**
