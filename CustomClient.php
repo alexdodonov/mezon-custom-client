@@ -142,10 +142,10 @@ class CustomClient
      *            HTTP method (POST|PUT|DELETE)
      * @param string $endpoint
      *            Calling endpoint
-     * @param array $data
+     * @param mixed $data
      *            Request data
      */
-    protected function sendFormRequest(string $method, string $endpoint, array $data = []): string
+    protected function sendFormRequest(string $method, string $endpoint, array $data = [])
     {
         $fullURL = $this->url . '/' . ltrim($endpoint, '/');
 
@@ -165,7 +165,7 @@ class CustomClient
      *            Request data
      * @return mixed Result of the request
      */
-    public function sendPostRequest(string $endpoint, array $data = []): string
+    public function sendPostRequest(string $endpoint, array $data = [])
     {
         return $this->sendFormRequest('POST', $endpoint, $data);
     }
@@ -179,7 +179,7 @@ class CustomClient
      *            Request data
      * @return mixed Result of the request
      */
-    public function sendPutRequest(string $endpoint, array $data = []): string
+    public function sendPutRequest(string $endpoint, array $data = [])
     {
         return $this->sendFormRequest('PUT', $endpoint, $data);
     }
@@ -193,7 +193,7 @@ class CustomClient
      *            Request data
      * @return mixed Result of the request
      */
-    public function sendDeleteRequest(string $endpoint, array $data = []): string
+    public function sendDeleteRequest(string $endpoint, array $data = [])
     {
         return $this->sendFormRequest('DELETE', $endpoint, $data);
     }
@@ -205,7 +205,7 @@ class CustomClient
      *            Calling endpoint.
      * @return mixed Result of the remote call.
      */
-    public function sendGetRequest(string $endpoint): string
+    public function sendGetRequest(string $endpoint)
     {
         $fullURL = $this->url . '/' . ltrim($endpoint, '/');
 
