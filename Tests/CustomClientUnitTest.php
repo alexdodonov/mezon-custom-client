@@ -127,7 +127,8 @@ class CustomClientUnitTest extends \PHPUnit\Framework\TestCase
         $codes = [
             400,
             403,
-            404
+            404,
+            0
         ];
         $methods = [
             'sendGetRequest',

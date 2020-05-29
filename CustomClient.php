@@ -92,7 +92,9 @@ class CustomClient
      */
     protected function dispatchResult(string $url, int $code, string $body)
     {
-        if ($code == 404) {
+        if ($code == 0) {
+            throw (new \Exception("No response from URL : " . $url));
+        } elseif ($code == 404) {
             throw (new \Exception("URL: $url not found"));
         } elseif ($code == 400) {
             throw (new \Exception("Bad request on URL $url"));
