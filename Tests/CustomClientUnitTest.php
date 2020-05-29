@@ -22,7 +22,7 @@ class CustomClientUnitTest extends \PHPUnit\Framework\TestCase
         $this->expectException(Exception::class);
 
         // setup and test body
-        new \Mezon\CustomClient\CustomClient('');
+        $client = new \Mezon\CustomClient\CustomClient('');
     }
 
     /**
