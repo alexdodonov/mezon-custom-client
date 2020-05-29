@@ -48,7 +48,7 @@ class CustomClient
      */
     public function __construct(string $url, array $headers = [])
     {
-        if ($url === false || $url === '') {
+        if ($url === '') {
             throw (new \Exception(
                 'Service URL must be set in class ' . __CLASS__ . ' extended in ' . get_called_class() .
                 ' and called from ' . ($_SERVER['SERVER_NAME'] ?? 'console') . ($_SERVER['REQUEST_URI'] ?? ''),
@@ -86,11 +86,11 @@ class CustomClient
      *            request URL
      * @param int $code
      *            response HTTP code
-     * @param string $body
+     * @param mixed $body
      *            response body
      * @return mixed Request result
      */
-    protected function dispatchResult(string $url, int $code, string $body)
+    protected function dispatchResult(string $url, int $code, $body)
     {
         if ($code == 0) {
             throw (new \Exception("No response from URL : " . $url));

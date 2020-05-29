@@ -22,12 +22,6 @@ class CustomClientUnitTest extends \PHPUnit\Framework\TestCase
         $this->expectException(Exception::class);
 
         // setup and test body
-        new \Mezon\CustomClient\CustomClient(false);
-
-        // assertions
-        $this->expectException(Exception::class);
-
-        // setup and test body
         new \Mezon\CustomClient\CustomClient('');
     }
 
