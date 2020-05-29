@@ -60,7 +60,7 @@ class CustomClientUnitTest extends \PHPUnit\Framework\TestCase
     protected function getMock(): object
     {
         return $this->getMockBuilder(CustomClient::class)
-            ->onlyMethods([
+            ->setMethods([
             'sendRequest'
         ])
             ->disableOriginalConstructor()
