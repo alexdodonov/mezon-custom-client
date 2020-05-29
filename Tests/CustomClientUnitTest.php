@@ -1,7 +1,9 @@
 <?php
 require_once (__DIR__ . '/../CustomClient.php');
 
-class TestClient extends \Mezon\CustomClient\CustomClient
+use Mezon\CustomClient\CustomClient;
+
+class TestClient extends CustomClient
 {
 
     public function getCommonHeadersPublic(): array
@@ -22,7 +24,7 @@ class CustomClientUnitTest extends \PHPUnit\Framework\TestCase
         $this->expectException(Exception::class);
 
         // setup and test body
-        $client = new \Mezon\CustomClient\CustomClient('');
+        $client = new CustomClient('');
     }
 
     /**
@@ -30,7 +32,7 @@ class CustomClientUnitTest extends \PHPUnit\Framework\TestCase
      */
     public function testConstructorValid(): void
     {
-        $client = new \Mezon\CustomClient\CustomClient('http://yandex.ru/', [
+        $client = new CustomClient('http://yandex.ru/', [
             'header'
         ]);
 
@@ -44,7 +46,7 @@ class CustomClientUnitTest extends \PHPUnit\Framework\TestCase
     public function testIdempotencyGetSet(): void
     {
         // setup
-        $client = new \Mezon\CustomClient\CustomClient('some url', []);
+        $client = new CustomClient('some url', []);
 
         // test bodyand assertions
         $client->setIdempotencyKey('i-key');
@@ -57,7 +59,7 @@ class CustomClientUnitTest extends \PHPUnit\Framework\TestCase
      */
     protected function getMock(): object
     {
-        return $this->getMockBuilder(\Mezon\CustomClient\CustomClient::class)
+        return $this->getMockBuilder(CustomClient::class)
             ->setMethods([
             'sendRequest'
         ])
@@ -100,7 +102,7 @@ class CustomClientUnitTest extends \PHPUnit\Framework\TestCase
         // setup
         $client = $this->getMock();
         $client->method('sendRequest')->willReturn([
-            'result',
+            'return',
             1
         ]);
 
@@ -108,7 +110,7 @@ class CustomClientUnitTest extends \PHPUnit\Framework\TestCase
         $result = $client->$methodName('/end-point/');
 
         // assertions
-        $this->assertEquals('result', $result);
+        $this->assertEquals('return', $result);
     }
 
     /**
