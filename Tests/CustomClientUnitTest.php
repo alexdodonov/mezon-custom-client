@@ -1,18 +1,12 @@
 <?php
-require_once (__DIR__ . '/../CustomClient.php');
 
+namespace Mezon\CustomClient\Tests;
+
+use Exception;
+use PHPUnit\Framework\TestCase;
 use Mezon\CustomClient\CustomClient;
 
-class TestClient extends CustomClient
-{
-
-    public function getCommonHeadersPublic(): array
-    {
-        return parent::getCommonHeaders();
-    }
-}
-
-class CustomClientUnitTest extends \PHPUnit\Framework\TestCase
+class CustomClientUnitTest extends TestCase
 {
 
     /**

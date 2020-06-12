@@ -11,7 +11,9 @@
 		}
 	],
 	"require": {
-		"php": ">=7.2.0",
+		"php": ">=7.2.0"
+	},
+	"require-dev": {
 		"phpunit/phpunit": "^8.5"
 	},
 	"support": {
@@ -27,8 +29,13 @@
 			"Mezon\\CustomClient\\": ""
 		}
 	},
+	"autoload-dev": {
+		"psr-4": {
+			"Mezon\\CustomClient\\Tests\\": "Tests/"
+		}
+	},
 	"scripts": {
-		"post-update-cmd": "php ./vendor/phpunit/phpunit/phpunit",
-		"test": "php ./vendor/phpunit/phpunit/phpunit"
+		"post-update-cmd": "php ./vendor/bin/phpunit",
+		"test": "php ./vendor/bin/phpunit"
 	}
 }
