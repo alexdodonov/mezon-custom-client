@@ -35,7 +35,7 @@
 		}
 	},
 	"scripts": {
-		"post-update-cmd": "php ./vendor/bin/phpunit",
-		"test": "php ./vendor/bin/phpunit"
+		"post-update-cmd": "php ./vendor/phpunit/phpunit/phpunit",
+		"test": "php ./vendor/phpunit/phpunit/phpunit"
 	}
 }
