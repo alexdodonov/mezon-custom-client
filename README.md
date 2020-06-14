@@ -1,4 +1,5 @@
-# Custom client for external services [![Build Status](https://travis-ci.com/alexdodonov/mezon-custom-client.svg?branch=master)](https://travis-ci.com/alexdodonov/mezon-custom-client) [![codecov](https://codecov.io/gh/alexdodonov/mezon-custom-client/branch/master/graph/badge.svg)](https://codecov.io/gh/alexdodonov/mezon-custom-client) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/alexdodonov/mezon-custom-client/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/alexdodonov/mezon-custom-client/?branch=master)
+# Custom client for external services
+[![Build Status](https://travis-ci.com/alexdodonov/mezon-custom-client.svg?branch=master)](https://travis-ci.com/alexdodonov/mezon-custom-client) [![codecov](https://codecov.io/gh/alexdodonov/mezon-custom-client/branch/master/graph/badge.svg)](https://codecov.io/gh/alexdodonov/mezon-custom-client) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/alexdodonov/mezon-custom-client/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/alexdodonov/mezon-custom-client/?branch=master)
 
 ## Installation
 
@@ -28,6 +29,20 @@ $client->sendPutRequest('https://your-api/end/point/', ['param' => 1]);
 $client->sendDeleteRequest('https://your-api/end/point/', ['param' => 1]);
 ```
 
-## Idempotence keys
+## Idempotency keys
 
-tba
+To be sure that your data modification request are executed only once - use idempotency keys.
+
+They are passed in the headers and can be set like this:
+
+```php
+$client->setIdempotencyKey('some hash, like md5 or GUID or something like that');
+```
+
+After that in all of your requests the header Idempotency-Key will be added.
+
+Note that this key will not be dropped automatically. You shold drop it manually:
+
+```php
+$client->setIdempotencyKey(''); // this call drops the key
+```
