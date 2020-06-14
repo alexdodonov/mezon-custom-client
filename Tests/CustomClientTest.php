@@ -1,8 +1,11 @@
 <?php
 
-require_once(__DIR__.'/../CustomClient.php');
+namespace Mezon\CustomClient\Tests;
 
-class CustomClientTest extends \PHPUnit\Framework\TestCase
+use PHPUnit\Framework\TestCase;
+use Mezon\CustomClient\CustomClient;
+
+class CustomClientTest extends TestCase
 {
 
     /**
@@ -10,7 +13,7 @@ class CustomClientTest extends \PHPUnit\Framework\TestCase
      */
     public function testGetMethod()
     {
-        $client = new \Mezon\CustomClient\CustomClient('http://yandex.ru/');
+        $client = new CustomClient('http://yandex.ru/');
 
         $client->sendGetRequest('unexisting');
 
@@ -22,7 +25,7 @@ class CustomClientTest extends \PHPUnit\Framework\TestCase
      */
     public function testPostMethod()
     {
-        $client = new \Mezon\CustomClient\CustomClient('http://yandex.ru/');
+        $client = new CustomClient('http://yandex.ru/');
 
         $client->sendPostRequest('unexisting');
 

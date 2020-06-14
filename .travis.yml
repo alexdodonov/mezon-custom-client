@@ -6,6 +6,7 @@ php:
   - '7.4'
 
 script:
+  - composer install -n
   - phpunit --coverage-clover=coverage.xml --configuration=phpunit.xml
 
 after_script:
