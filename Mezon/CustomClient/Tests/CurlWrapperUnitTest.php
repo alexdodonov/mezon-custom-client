@@ -1,5 +1,4 @@
 <?php
-
 namespace Mezon\CustomClient\Tests;
 
 use PHPUnit\Framework\TestCase;
@@ -24,13 +23,9 @@ class CurlWrapperUnitTest extends TestCase
      */
     public function testPostRequest()
     {
-        list ($body, $code) = CurlWrapper::sendRequest(
-            'http://google.com',
-            [],
-            'POST',
-            [
-                'data' => 1
-            ]);
+        list ($body, $code) = CurlWrapper::sendRequest('http://google.com', [], 'POST', [
+            'data' => 1
+        ]);
 
         $this->assertStringContainsString('', $body, 'Invalid HTML was returned');
         $this->assertEquals(405, $code, 'Invalid HTTP code');

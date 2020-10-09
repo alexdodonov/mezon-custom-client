@@ -26,12 +26,7 @@
 	"prefer-stable": true,
 	"autoload": {
 		"psr-4": {
-			"Mezon\\CustomClient\\": ""
-		}
-	},
-	"autoload-dev": {
-		"psr-4": {
-			"Mezon\\CustomClient\\Tests\\": "Tests/"
+			"Mezon\\": "./Mezon/"
 		}
 	},
 	"scripts": {

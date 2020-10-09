@@ -1,5 +1,4 @@
 <?php
-
 namespace Mezon\CustomClient\Tests;
 
 use PHPUnit\Framework\TestCase;

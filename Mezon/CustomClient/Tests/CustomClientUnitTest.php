@@ -1,5 +1,4 @@
 <?php
-
 namespace Mezon\CustomClient\Tests;
 
 use Exception;
@@ -15,7 +14,7 @@ class CustomClientUnitTest extends TestCase
     public function testConstructorInvalid(): void
     {
         // assertions
-        $this->expectException(Exception::class);
+        $this->expectException(\Exception::class);
 
         // setup and test body
         $client = new CustomClient('');

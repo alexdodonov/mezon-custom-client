@@ -1,5 +1,4 @@
 <?php
-
 namespace Mezon\CustomClient\Tests;
 
 use Mezon\CustomClient\CustomClient;

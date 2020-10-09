@@ -76,7 +76,7 @@ class CustomClient
      */
     protected function sendRequest(string $url, array $headers, string $method, array $data = []): array
     {
-        return \Mezon\CustomClient\CurlWrapper::sendRequest($url, $headers, $method, $data);
+        return CurlWrapper::sendRequest($url, $headers, $method, $data);
     }
 
     /**
