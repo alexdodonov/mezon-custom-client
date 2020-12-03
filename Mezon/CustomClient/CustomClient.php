@@ -39,6 +39,20 @@ class CustomClient
     protected $idempotencyKey = '';
 
     /**
+     * Trait PUT requests as POST
+     *
+     * @var boolean
+     */
+    private $traitPutAsPost = false;
+
+    /**
+     * Trait DELETE requests as POST
+     *
+     * @var boolean
+     */
+    private $traitDeleteAsPost = false;
+
+    /**
      * Constructor
      *
      * @param string $url
@@ -181,7 +195,11 @@ class CustomClient
      */
     public function sendPutRequest(string $endpoint, array $data = [])
     {
-        return $this->sendFormRequest('PUT', $endpoint, $data);
+        if ($this->traitPutAsPost) {
+            return $this->sendPostRequest($endpoint, $data);
+        } else {
+            return $this->sendFormRequest('PUT', $endpoint, $data);
+        }
     }
 
     /**
@@ -195,7 +213,11 @@ class CustomClient
      */
     public function sendDeleteRequest(string $endpoint, array $data = [])
     {
-        return $this->sendFormRequest('DELETE', $endpoint, $data);
+        if ($this->traitDeleteAsPost) {
+            return $this->sendPostRequest($endpoint, $data);
+        } else {
+            return $this->sendFormRequest('DELETE', $endpoint, $data);
+        }
     }
 
     /**
@@ -256,5 +278,25 @@ class CustomClient
     public function getHeaders(): array
     {
         return $this->headers;
+    }
+
+    /**
+     * Method traits PUT as POST
+     *
+     * @param bool $flag
+     */
+    public function setPutTraitMethod(bool $flag): void
+    {
+        $this->traitPutAsPost = $flag;
+    }
+
+    /**
+     * Method traits DELETE as POST
+     *
+     * @param bool $flag
+     */
+    public function setDeleteTraitMethod(bool $flag): void
+    {
+        $this->traitDeleteAsPost = $flag;
     }
 }

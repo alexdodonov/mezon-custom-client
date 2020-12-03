@@ -2,10 +2,9 @@
 namespace Mezon\CustomClient\Tests;
 
 use Exception;
-use PHPUnit\Framework\TestCase;
 use Mezon\CustomClient\CustomClient;
 
-class CustomClientUnitTest extends TestCase
+class CustomClientUnitTest extends BaseTestUtilities
 {
 
     /**
@@ -31,33 +30,6 @@ class CustomClientUnitTest extends TestCase
 
         $this->assertEquals('http://yandex.ru', $client->getUrl(), 'Invalid URL');
         $this->assertEquals(1, count($client->getHeaders()), 'Invalid headers');
-    }
-
-    /**
-     * Testing getters/setters for the field
-     */
-    public function testIdempotencyGetSet(): void
-    {
-        // setup
-        $client = new CustomClient('some url', []);
-
-        // test bodyand assertions
-        $client->setIdempotencyKey('i-key');
-
-        $this->assertEquals('i-key', $client->getIdempotencyKey(), 'Invalid idempotency key');
-    }
-
-    /**
-     * Creating mock
-     */
-    protected function getMock(): object
-    {
-        return $this->getMockBuilder(CustomClient::class)
-            ->setMethods([
-            'sendRequest'
-        ])
-            ->disableOriginalConstructor()
-            ->getMock();
     }
 
     /**
@@ -162,18 +134,5 @@ class CustomClientUnitTest extends TestCase
 
         // test body
         $client->$methodName('/end-point/');
-    }
-
-    /**
-     * Testing setting idempotency key
-     */
-    public function testSetIdempotencyKey(): void
-    {
-        // setup
-        $client = new TestClient('http://unit.test');
-        $client->setIdempotencyKey('iKey');
-
-        // test body and assertions
-        $this->assertStringContainsString('iKey', implode('', $client->getCommonHeadersPublic()));
     }
 }
