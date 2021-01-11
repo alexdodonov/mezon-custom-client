@@ -56,12 +56,14 @@ class CustomClient
      * Constructor
      *
      * @param string $url
-     *            Service URL
+     *            service URL
      * @param array $headers
      *            HTTP headers
      */
     public function __construct(string $url, array $headers = [])
     {
+        // TODO make $url defaulted to '' and also make method assertUrl which validates it is set
+        // and make setter for this field
         if ($url === '') {
             throw (new \Exception(
                 'Service URL must be set in class ' . __CLASS__ . ' extended in ' . get_called_class() .

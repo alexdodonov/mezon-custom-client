@@ -20,7 +20,7 @@ class CurlWrapper
     /**
      * Method send HTTP request
      *
-     * @param string $uRL
+     * @param string $url
      *            URL
      * @param array $headers
      *            Headers
@@ -30,12 +30,12 @@ class CurlWrapper
      *            Request data
      * @return array Response body and HTTP code
      */
-    public static function sendRequest(string $uRL, array $headers, string $method, array $data = []): array
+    public static function sendRequest(string $url, array $headers, string $method, array $data = []): array
     {
         $ch = curl_init();
 
         $curlConfig = [
-            CURLOPT_URL => $uRL,
+            CURLOPT_URL => $url,
             CURLOPT_HTTPHEADER => $headers,
             CURLOPT_POST => ($method == 'POST'),
             CURLOPT_RETURNTRANSFER => true,
