@@ -9,6 +9,11 @@ Just print
 composer require mezon/custom-client
 ```
 
+## Reasons to use
+- it will help ypu to create REST API clients lightning fast! Just look at this [example of creation Jira API Client](https://github.com/alexdodonov/mezon-jira-client)
+- is has 100% code coverage
+- it has 10.0 points on Scrutinizer
+
 ## Sending requests
 
 You can send different types of requests.
