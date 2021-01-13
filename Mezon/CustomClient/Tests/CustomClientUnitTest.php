@@ -12,11 +12,10 @@ class CustomClientUnitTest extends BaseTestUtilities
      */
     public function testConstructorInvalid(): void
     {
-        // assertions
-        $this->expectException(\Exception::class);
-
         // setup and test body
         $client = new CustomClient('');
+
+        $this->assertEquals('', $client->getUrl());
     }
 
     /**
@@ -134,5 +133,35 @@ class CustomClientUnitTest extends BaseTestUtilities
 
         // test body
         $client->$methodName('/end-point/');
+    }
+
+    /**
+     * Testing method assertUrl
+     */
+    public function testInvalidCall(): void
+    {
+        // assertions
+        $this->expectException(\Exception::class);
+
+        // setup
+        $client = new CustomClient('');
+
+        // test body
+        $client->sendGetRequest('some-end-point');
+    }
+
+    /**
+     * Testing method
+     */
+    public function testSetUrl(): void
+    {
+        // setup
+        $client = new CustomClient();
+
+        // test body
+        $client->setUrl('testing-url');
+
+        // assertions
+        $this->assertEquals('testing-url', $client->getUrl());
     }
 }

@@ -16,7 +16,9 @@ class BaseTestUtilities extends TestCase
     {
         return $this->getMockBuilder(CustomClient::class)
             ->setMethods($methods)
-            ->disableOriginalConstructor()
+            ->setConstructorArgs([
+            'http://ya.ru'
+        ])
             ->getMock();
     }
 }

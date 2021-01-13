@@ -60,18 +60,13 @@ class CustomClient
      * @param array $headers
      *            HTTP headers
      */
-    public function __construct(string $url, array $headers = [])
+    public function __construct(string $url = '', array $headers = [])
     {
-        // TODO make $url defaulted to '' and also make method assertUrl which validates it is set
-        // and make setter for this field
-        if ($url === '') {
-            throw (new \Exception(
-                'Service URL must be set in class ' . __CLASS__ . ' extended in ' . get_called_class() .
-                ' and called from ' . ($_SERVER['SERVER_NAME'] ?? 'console') . ($_SERVER['REQUEST_URI'] ?? ''),
-                - 23));
+        if ($url !== '') {
+            $this->url = rtrim($url, '/');
+        } else {
+            $this->url = '';
         }
-
-        $this->url = rtrim($url, '/');
 
         $this->headers = $headers;
     }
@@ -154,6 +149,19 @@ class CustomClient
     }
 
     /**
+     * Method asserts that $url is set
+     */
+    private function assertUrl(): void
+    {
+        if ($this->url == '') {
+            throw (new \Exception(
+                'Service URL must be set in class ' . __CLASS__ . ' extended in ' . get_called_class() .
+                ' and called from ' . ($_SERVER['SERVER_NAME'] ?? 'console') . ($_SERVER['REQUEST_URI'] ?? ''),
+                - 23));
+        }
+    }
+
+    /**
      * Method sends request on server
      *
      * @param string $method
@@ -165,6 +173,8 @@ class CustomClient
      */
     protected function sendFormRequest(string $method, string $endpoint, array $data = [])
     {
+        $this->assertUrl();
+
         $fullUrl = $this->url . '/' . ltrim($endpoint, '/');
 
         list ($body, $code) = $this->sendRequest($fullUrl, $this->getFormHeaders(), $method, $data);
@@ -231,6 +241,8 @@ class CustomClient
      */
     public function sendGetRequest(string $endpoint)
     {
+        $this->assertUrl();
+
         $fullUrl = $this->url . '/' . ltrim($endpoint, '/');
 
         $fullUrl = str_replace(' ', '%20', $fullUrl);
@@ -270,6 +282,17 @@ class CustomClient
     public function getUrl(): string
     {
         return $this->url;
+    }
+
+    /**
+     * Method sets URL
+     *
+     * @param string $url
+     *            URL
+     */
+    public function setUrl(string $url): void
+    {
+        $this->url = $url;
     }
 
     /**
