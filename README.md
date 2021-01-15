@@ -51,3 +51,13 @@ Note that this key will not be dropped automatically. You shold drop it manually
 ```php
 $client->setIdempotencyKey(''); // this call drops the key
 ```
+
+# Learn more
+
+More information can be found here:
+
+[Twitter](https://twitter.com/mezonphp)
+
+[dev.to](https://dev.to/alexdodonov)
+
+[Slack](https://join.slack.com/t/mezon-framework/signup?x=x-p1148081653955-1171709616688-1154057706548)
