@@ -18,6 +18,26 @@ class CurlWrapper
 {
 
     /**
+     * Does the specified header exists
+     *
+     * @param array $headers
+     *            list of headers to be analized
+     * @param string $header
+     *            header to be found
+     * @return bool true if the header was found, false otherwise
+     */
+    public static function isHeaderExists(array $headers, string $header): bool
+    {
+        foreach ($headers as $header) {
+            if (stripos($header, $header) !== false) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Method send HTTP request
      *
      * @param string $url
@@ -42,12 +62,18 @@ class CurlWrapper
             CURLOPT_SSL_VERIFYPEER => true
         ];
 
-        if ($method == 'POST') {
-            $formData = [];
-            foreach ($data as $key => $value) {
-                $formData[] = $key . '=' . urlencode($value);
+        if ($method === 'POST') {
+            if (self::isHeaderExists($headers, 'Content-type: application/json')) {
+                $formData = json_encode($data);
+            } else {
+                $formData = [];
+                foreach ($data as $key => $value) {
+                    $formData[] = $key . '=' . urlencode($value);
+                }
+                $formData = implode('&', $formData);
             }
-            $curlConfig[CURLOPT_POSTFIELDS] = implode('&', $formData);
+
+            $curlConfig[CURLOPT_POSTFIELDS] = $formData;
         }
 
         curl_setopt_array($ch, $curlConfig);

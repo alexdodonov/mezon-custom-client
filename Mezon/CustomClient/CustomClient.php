@@ -129,8 +129,6 @@ class CustomClient
             $result[] = 'Idempotency-Key: ' . $this->idempotencyKey;
         }
 
-        $result[] = 'User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0';
-
         return $result;
     }
 
@@ -143,7 +141,9 @@ class CustomClient
     {
         $fullHeaders = $this->getCommonHeaders();
 
-        $fullHeaders[] = 'Content-type: application/x-www-form-urlencoded';
+        if (! CurlWrapper::isHeaderExists($this->headers, 'Content-type')) {
+            $fullHeaders[] = 'Content-type: application/x-www-form-urlencoded';
+        }
 
         return $fullHeaders;
     }
@@ -154,10 +154,7 @@ class CustomClient
     private function assertUrl(): void
     {
         if ($this->url == '') {
-            throw (new \Exception(
-                'Service URL must be set in class ' . __CLASS__ . ' extended in ' . get_called_class() .
-                ' and called from ' . ($_SERVER['SERVER_NAME'] ?? 'console') . ($_SERVER['REQUEST_URI'] ?? ''),
-                - 23));
+            throw (new \Exception('Service URL must be set in class ' . __CLASS__ . ' extended in ' . get_called_class() . ' and called from ' . ($_SERVER['SERVER_NAME'] ?? 'console') . ($_SERVER['REQUEST_URI'] ?? ''), - 23));
         }
     }
 

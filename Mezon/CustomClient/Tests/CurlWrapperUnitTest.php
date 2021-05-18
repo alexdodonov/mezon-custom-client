@@ -8,12 +8,21 @@ class CurlWrapperUnitTest extends TestCase
 {
 
     /**
+     * URL for testing purposes
+     *
+     * @var string
+     */
+    private $url = 'http://google.com';
+
+    /**
      * Testing GET requests
      */
     public function testGetRequest()
     {
-        list ($body, $code) = CurlWrapper::sendRequest('http://google.com', [], 'GET');
+        // test body
+        list ($body, $code) = CurlWrapper::sendRequest($this->url, [], 'GET');
 
+        // assertions
         $this->assertStringContainsString('', $body, 'Invalid HTML was returned');
         $this->assertEquals(301, $code, 'Invalid HTTP code');
     }
@@ -23,11 +32,30 @@ class CurlWrapperUnitTest extends TestCase
      */
     public function testPostRequest()
     {
-        list ($body, $code) = CurlWrapper::sendRequest('http://google.com', [], 'POST', [
+        // test body
+        list ($body, $code) = CurlWrapper::sendRequest($this->url, [], 'POST', [
             'data' => 1
         ]);
 
+        // assertions
         $this->assertStringContainsString('', $body, 'Invalid HTML was returned');
         $this->assertEquals(405, $code, 'Invalid HTTP code');
+    }
+
+    /**
+     * Testing JSON request
+     */
+    public function testJsonRequest(): void
+    {
+        // test body
+        list ($body, $code) = CurlWrapper::sendRequest($this->url, [
+            'Content-type: application/json'
+        ], 'POST', [
+            'data' => 1
+        ]);
+        $body = json_decode($body, false);
+
+        // assertions
+        $this->assertEquals(405, $code);
     }
 }
