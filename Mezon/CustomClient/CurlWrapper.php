@@ -22,14 +22,14 @@ class CurlWrapper
      *
      * @param array $headers
      *            list of headers to be analized
-     * @param string $header
+     * @param string $requiredHeader
      *            header to be found
      * @return bool true if the header was found, false otherwise
      */
-    public static function isHeaderExists(array $headers, string $header): bool
+    public static function isHeaderExists(array $headers, string $requiredHeader): bool
     {
         foreach ($headers as $header) {
-            if (stripos($header, $header) !== false) {
+            if (stripos($header, $requiredHeader) !== false) {
                 return true;
             }
         }
