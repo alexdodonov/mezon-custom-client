@@ -103,6 +103,7 @@ class CustomClient
      */
     protected function dispatchResult(string $url, int $code, $body)
     {
+        // TODO send body in exception because even if the error code was returned the body may not be nulled
         if ($code == 0) {
             throw (new \Exception("No response from URL : " . $url));
         } elseif ($code == 404) {
