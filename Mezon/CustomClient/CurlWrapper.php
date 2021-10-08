@@ -38,6 +38,56 @@ class CurlWrapper
     }
 
     /**
+     * Method packs arrays
+     *
+     * @param string $fieldName
+     *            field name
+     * @param array $data
+     *            array data to be packed
+     * @return array packed array data
+     */
+    public static function packArray(string $fieldName, array $data): array
+    {
+        $formData = [];
+
+        foreach ($data as $key => $value) {
+            if (is_scalar($value)) {
+                $formData[] = $fieldName . '[' . $key . ']=' . urlencode($value);
+            } elseif (is_array($value)) {
+                $formData = array_merge($formData, self::packArray($fieldName . '[' . $key . ']', $value));
+            } else {
+                throw (new \Exception('Data type is not supported'));
+            }
+        }
+
+        return $formData;
+    }
+
+    /**
+     * Method packs data in string
+     *
+     * @param array $data
+     *            data to be packed
+     * @return string packed data
+     */
+    public static function packData(array $data): string
+    {
+        $formData = [];
+
+        foreach ($data as $key => $value) {
+            if (is_scalar($value)) {
+                $formData[] = $key . '=' . urlencode($value);
+            } elseif (is_array($value)) {
+                $formData = array_merge($formData, self::packArray($key, $value));
+            } else {
+                throw (new \Exception('Data type is not supported'));
+            }
+        }
+
+        return implode('&', $formData);
+    }
+
+    /**
      * Method send HTTP request
      *
      * @param string $url
@@ -66,11 +116,7 @@ class CurlWrapper
             if (self::isHeaderExists($headers, 'Content-type: application/json')) {
                 $formData = json_encode($data);
             } else {
-                $formData = [];
-                foreach ($data as $key => $value) {
-                    $formData[] = $key . '=' . urlencode($value);
-                }
-                $formData = implode('&', $formData);
+                $formData = self::packData($data);
             }
 
             $curlConfig[CURLOPT_POSTFIELDS] = $formData;
