@@ -2,10 +2,13 @@
 namespace Mezon\CustomClient\Tests;
 
 use Exception;
-use Mezon\CustomClient\CustomClient;
 use PHPUnit\Framework\TestCase;
 use Mezon\CustomClient\CurlWrapper;
 
+/**
+ * 
+ * @psalm-suppress PropertyNotSetInConstructor
+ */
 class PackDataUnitTest extends TestCase
 {
 

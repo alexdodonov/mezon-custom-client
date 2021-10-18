@@ -4,6 +4,10 @@ namespace Mezon\CustomClient\Tests;
 use PHPUnit\Framework\TestCase;
 use Mezon\CustomClient\CurlWrapper;
 
+/**
+ *
+ * @psalm-suppress PropertyNotSetInConstructor
+ */
 class CurlWrapperUnitTest extends TestCase
 {
 
@@ -17,7 +21,7 @@ class CurlWrapperUnitTest extends TestCase
     /**
      * Testing GET requests
      */
-    public function testGetRequest()
+    public function testGetRequest(): void
     {
         // test body
         list ($body, $code) = CurlWrapper::sendRequest($this->url, [], 'GET');
@@ -30,7 +34,7 @@ class CurlWrapperUnitTest extends TestCase
     /**
      * Testing POST requests
      */
-    public function testPostRequest()
+    public function testPostRequest(): void
     {
         // test body
         list ($body, $code) = CurlWrapper::sendRequest($this->url, [], 'POST', [

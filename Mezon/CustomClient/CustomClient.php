@@ -22,7 +22,7 @@ class CustomClient
      *
      * @var string
      */
-    protected $url = false;
+    protected $url = '';
 
     /**
      * Headers
@@ -168,6 +168,7 @@ class CustomClient
      *            Calling endpoint
      * @param mixed $data
      *            Request data
+     *            @return mixed request result
      */
     protected function sendFormRequest(string $method, string $endpoint, array $data = [])
     {

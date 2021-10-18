@@ -4,6 +4,10 @@ namespace Mezon\CustomClient\Tests;
 use PHPUnit\Framework\TestCase;
 use Mezon\CustomClient\CustomClient;
 
+/**
+ *
+ * @psalm-suppress PropertyNotSetInConstructor
+ */
 class CustomClientIdempotencyKeyUnitTest extends TestCase
 {
 

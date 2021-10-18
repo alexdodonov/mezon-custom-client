@@ -1,6 +1,10 @@
 <?php
 namespace Mezon\CustomClient\Tests;
 
+/**
+ *
+ * @psalm-suppress PropertyNotSetInConstructor
+ */
 class CustomClientTraitUnitTest extends BaseTestUtilities
 {
 

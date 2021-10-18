@@ -4,6 +4,10 @@ namespace Mezon\CustomClient\Tests;
 use Exception;
 use Mezon\CustomClient\CustomClient;
 
+/**
+ *
+ * @psalm-suppress PropertyNotSetInConstructor
+ */
 class CustomClientUnitTest extends BaseTestUtilities
 {
 

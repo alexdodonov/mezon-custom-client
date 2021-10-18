@@ -52,7 +52,7 @@ class CurlWrapper
 
         foreach ($data as $key => $value) {
             if (is_scalar($value)) {
-                $formData[] = $fieldName . '[' . $key . ']=' . urlencode($value);
+                $formData[] = $fieldName . '[' . $key . ']=' . urlencode((string) $value);
             } elseif (is_array($value)) {
                 $formData = array_merge($formData, self::packArray($fieldName . '[' . $key . ']', $value));
             } else {
@@ -76,7 +76,7 @@ class CurlWrapper
 
         foreach ($data as $key => $value) {
             if (is_scalar($value)) {
-                $formData[] = $key . '=' . urlencode($value);
+                $formData[] = $key . '=' . urlencode((string) $value);
             } elseif (is_array($value)) {
                 $formData = array_merge($formData, self::packArray($key, $value));
             } else {
