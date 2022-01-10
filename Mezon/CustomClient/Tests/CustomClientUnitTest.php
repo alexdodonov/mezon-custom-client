@@ -82,64 +82,6 @@ class CustomClientUnitTest extends BaseTestUtilities
     }
 
     /**
-     * Data provider for the test testResultDispatching
-     *
-     * @return array testing data
-     */
-    public function resultDispatchingDataProvider(): array
-    {
-        $codes = [
-            400,
-            403,
-            404,
-            0
-        ];
-        $methods = [
-            'sendGetRequest',
-            'sendPostRequest',
-            'sendPutRequest',
-            'sendDeleteRequest'
-        ];
-        $return = [];
-
-        foreach ($codes as $code) {
-            foreach ($methods as $method) {
-                $return[] = [
-                    $code,
-                    $method
-                ];
-            }
-        }
-
-        return $return;
-    }
-
-    /**
-     * Testing result dispatcher
-     *
-     * @param int $httpCode
-     *            code of the response
-     * @param string $methodName
-     *            name of the testing methodd
-     * @dataProvider resultDispatchingDataProvider
-     */
-    public function testResultDispatching(int $httpCode, string $methodName): void
-    {
-        // setup
-        $client = $this->getMock();
-        $client->method('sendRequest')->willReturn([
-            'result',
-            $httpCode
-        ]);
-
-        // assertions
-        $this->expectException(\Exception::class);
-
-        // test body
-        $client->$methodName('/end-point/');
-    }
-
-    /**
      * Testing method assertUrl
      */
     public function testInvalidCall(): void
